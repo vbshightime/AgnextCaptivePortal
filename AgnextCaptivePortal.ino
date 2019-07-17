@@ -2,7 +2,6 @@
 #include <pgmspace.h>
 #include "FS.h"
 #include <EEPROM.h>
-#include <ESP8266WebServer.h>
 #include <ESP8266WiFi.h>
 #define PUSH_PIN 5
 #define rtcPos 65
@@ -258,7 +257,6 @@ void reconnectWiFi(){
 void handleWebForm(){ 
       WiFi.mode(WIFI_AP);
       delay(100);
-      WiFi.softAPConfig(apIP, apIP, netMsk);
       Serial.println(WiFi.softAP(ssidAPConfig,passAPConfig) ? "Configuring softAP" : "kya yaar not connected");    
       delay(100);
       Serial.println(WiFi.softAPIP());
@@ -296,9 +294,6 @@ void handleDHCP(){
          String device = String(read_string(20,100));
          webString.replace("{s}",device);
          webString+= FPSTR(HTTPFORM);
-         webString+= FPSTR(HTTPLABLE1);
-         webString+= FPSTR(HTTPLABLE2);
-         webString+= FPSTR(HTTPLABLE3);
          webString+= FPSTR(HHTTPDELAY);
          webString+= FPSTR(HTTPSUBMIT);
          webString+= FPSTR(HTTPCLOSE);
